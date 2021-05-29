@@ -508,15 +508,15 @@ extern void UnloadFontDefault(void);        // [Module: text] Unloads default fo
 //----------------------------------------------------------------------------------
 // Module specific Functions Declaration
 //----------------------------------------------------------------------------------
-static bool InitGraphicsDevice(int width, int height);  // Initialize graphics device
-static void SetupFramebuffer(int width, int height);    // Setup main framebuffer
-static void SetupViewport(int width, int height);       // Set viewport for a provided width and height
-static void SwapBuffers(void);                          // Copy back buffer to front buffer
+bool InitGraphicsDevice(int width, int height);  // Initialize graphics device
+void SetupFramebuffer(int width, int height);    // Setup main framebuffer
+void SetupViewport(int width, int height);       // Set viewport for a provided width and height
+void SwapBuffers(void);                          // Copy back buffer to front buffer
 
-static void InitTimer(void);                            // Initialize timer
-static void Wait(float ms);                             // Wait for some milliseconds (stop program execution)
+void InitTimer(void);                            // Initialize timer
+void Wait(float ms);                             // Wait for some milliseconds (stop program execution)
 
-static void PollInputEvents(void);                      // Register user events
+void PollInputEvents(void);                      // Register user events
 
 #if defined(PLATFORM_DESKTOP) || defined(PLATFORM_WEB)
 static void ErrorCallback(int error, const char *description);                             // GLFW3 Error Callback, runs on GLFW3 error
@@ -3507,7 +3507,7 @@ Vector2 GetTouchPosition(int index)
 // NOTE: width and height represent the screen (framebuffer) desired size, not actual display size
 // If width or height are 0, default display size will be used for framebuffer size
 // NOTE: returns false in case graphic device could not be created
-static bool InitGraphicsDevice(int width, int height)
+bool InitGraphicsDevice(int width, int height)
 {
     CORE.Window.screen.width = width;            // User desired width
     CORE.Window.screen.height = height;          // User desired height
@@ -4400,7 +4400,7 @@ static bool InitGraphicsDevice(int width, int height)
 }
 
 // Set viewport for a provided width and height
-static void SetupViewport(int width, int height)
+void SetupViewport(int width, int height)
 {
     CORE.Window.render.width = width;
     CORE.Window.render.height = height;
@@ -4429,7 +4429,7 @@ static void SetupViewport(int width, int height)
 
 // Compute framebuffer size relative to screen size and display size
 // NOTE: Global variables CORE.Window.render.width/CORE.Window.render.height and CORE.Window.renderOffset.x/CORE.Window.renderOffset.y can be modified
-static void SetupFramebuffer(int width, int height)
+void SetupFramebuffer(int width, int height)
 {
     // Calculate CORE.Window.render.width and CORE.Window.render.height, we have the display size (input params) and the desired screen size (global var)
     if ((CORE.Window.screen.width > CORE.Window.display.width) || (CORE.Window.screen.height > CORE.Window.display.height))
@@ -4506,7 +4506,7 @@ static void SetupFramebuffer(int width, int height)
 }
 
 // Initialize hi-resolution timer
-static void InitTimer(void)
+void InitTimer(void)
 {
     srand((unsigned int)time(NULL));    // Initialize random seed
 
@@ -4536,7 +4536,7 @@ static void InitTimer(void)
 // take longer than expected... for that reason we use the busy wait loop
 // Ref: http://stackoverflow.com/questions/43057578/c-programming-win32-games-sleep-taking-longer-than-expected
 // Ref: http://www.geisswerks.com/ryan/FAQS/timing.html --> All about timming on Win32!
-static void Wait(float ms)
+void Wait(float ms)
 {
 #if defined(PLATFORM_UWP)
     UWPGetSleepFunc()(ms/1000);
@@ -4585,7 +4585,7 @@ static void Wait(float ms)
 }
 
 // Poll (store) all input events
-static void PollInputEvents(void)
+void PollInputEvents(void)
 {
 #if defined(SUPPORT_GESTURES_SYSTEM)
     // NOTE: Gestures update must be called every frame to reset gestures correctly
@@ -4859,7 +4859,7 @@ static void PollInputEvents(void)
 }
 
 // Copy back buffer to front buffers
-static void SwapBuffers(void)
+void SwapBuffers(void)
 {
 #if defined(PLATFORM_DESKTOP) || defined(PLATFORM_WEB)
     glfwSwapBuffers(CORE.Window.handle);

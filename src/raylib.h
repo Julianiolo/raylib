@@ -952,6 +952,15 @@ RLAPI const char *GetMonitorName(int monitor);                    // Get the hum
 RLAPI void SetClipboardText(const char *text);                    // Set clipboard text content
 RLAPI const char *GetClipboardText(void);                         // Get clipboard text content
 
+// Custom-gameloop-related functions
+RLAPI bool InitGraphicsDevice(int width, int height);                   // Initialize graphics device
+RLAPI void SetupFramebuffer(int width, int height);                     // Setup main framebuffer
+RLAPI void SetupViewport(int width, int height);                        // Set viewport for a provided width and height
+RLAPI void SwapBuffers(void);                                           // Copy back buffer to front buffer
+RLAPI void InitTimer(void);                                             // Initialize timer
+RLAPI void Wait(float ms);                                              // Wait for some milliseconds (stop program execution)
+RLAPI void PollInputEvents(void);                                       // Register user events
+
 // Cursor-related functions
 RLAPI void ShowCursor(void);                                      // Shows cursor
 RLAPI void HideCursor(void);                                      // Hides cursor
