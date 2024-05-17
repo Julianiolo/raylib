@@ -54,7 +54,7 @@
     raylib-parser is licensed under an unmodified zlib/libpng license, which is an OSI-certified,
     BSD-like license that allows static linking with closed source software:
 
-    Copyright (c) 2021-2023 Ramon Santamaria (@raysan5)
+    Copyright (c) 2021-2024 Ramon Santamaria (@raysan5)
 
 **********************************************************************************************/
 
@@ -1006,8 +1006,14 @@ int main(int argc, char* argv[])
             {
                 funcEnd = c + 2;
 
-                // Check if previous word is void
-                if ((linePtr[c - 4] == 'v') && (linePtr[c - 3] == 'o') && (linePtr[c - 2] == 'i') && (linePtr[c - 1] == 'd')) break;
+                // Check if there are no parameters
+                if ((funcEnd - funcParamsStart == 2) ||
+                    ((linePtr[c - 4] == 'v') &&
+                     (linePtr[c - 3] == 'o') &&
+                     (linePtr[c - 2] == 'i') &&
+                     (linePtr[c - 1] == 'd'))) {
+                  break;
+                }
 
                 // Get parameter type + name, extract info
                 char funcParamTypeName[128] = { 0 };
@@ -1075,7 +1081,7 @@ static void ShowCommandLineInfo(void)
     printf("//                                                                              //\n");
     printf("// more info and bugs-report: github.com/raysan5/raylib/parser                  //\n");
     printf("//                                                                              //\n");
-    printf("// Copyright (c) 2021-2023 Ramon Santamaria (@raysan5)                          //\n");
+    printf("// Copyright (c) 2021-2024 Ramon Santamaria (@raysan5)                          //\n");
     printf("//                                                                              //\n");
     printf("//////////////////////////////////////////////////////////////////////////////////\n\n");
 
@@ -1237,7 +1243,7 @@ static char **GetTextLines(const char *buffer, int length, int *linesCount)
         while ((bufferPtr[index] == ' ') || (bufferPtr[index] == '\t')) index++;
 
         int j = 0;
-        while (bufferPtr[index + j] != '\n')
+        while (bufferPtr[index + j] != '\n' && bufferPtr[index + j] != '\0')
         {
             lines[i][j] = bufferPtr[index + j];
             j++;
