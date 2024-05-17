@@ -39,6 +39,9 @@
 
 #if defined(_WIN32) || defined(__CYGWIN__)
     #define _GLFW_WIN32
+    #ifndef _WIN32
+        #define _WIN32
+    #endif
 #endif
 #if defined(__linux__)
     #if !defined(_GLFW_WAYLAND)     // Required for Wayland windowing
