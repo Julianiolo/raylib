@@ -165,7 +165,7 @@
         GLFW_NSGL_LIBRARY_CONTEXT_STATE \
         GLFW_GLX_LIBRARY_CONTEXT_STATE
 
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(__CYGWIN__)
  #define GLFW_BUILD_WIN32_THREAD
 #else
  #define GLFW_BUILD_POSIX_THREAD
@@ -181,7 +181,7 @@
  #define GLFW_PLATFORM_MUTEX_STATE  GLFW_POSIX_MUTEX_STATE
 #endif
 
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(__CYGWIN__)
  #define GLFW_BUILD_WIN32_TIMER
 #elif defined(__APPLE__)
  #define GLFW_BUILD_COCOA_TIMER
@@ -200,7 +200,7 @@
  #define GLFW_PLATFORM_LIBRARY_TIMER_STATE  GLFW_POSIX_LIBRARY_TIMER_STATE
 #endif
 
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(__CYGWIN__)
  #define GLFW_BUILD_WIN32_MODULE
 #else
  #define GLFW_BUILD_POSIX_MODULE
